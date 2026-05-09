@@ -171,4 +171,3 @@ export function StoreChat({ storeName }: StoreChatProps) {
     </div>
   )
 }
-
