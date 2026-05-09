@@ -1,212 +1,219 @@
+import React from 'react'
+import Link from 'next/link'
+import { Star, MessageCircle, ArrowRight, Flame } from 'lucide-react'
+import { getStores } from '@/lib/mock/stores'
+import { StoreCard } from '@/components/store/store-card'
+import { getFeaturedReviews } from '@/lib/mock/reviews'
+import { menuItems } from '@/data/menus'
+import { formatCurrency } from '@/lib/utils'
+import { CategoryChips } from '@/components/shared/category-chips'
 
-export default function HomePage() {
-  const foods = [
-    {
-      name: "Ayam Geprek Spesial",
-      rating: 4.8,
-      desc: "Pedasnya nendang...",
-      price: "12.000",
-      image:
-        "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Nasi Rames Bu Siti",
-      rating: 4.5,
-      desc: "Dijamin kenyang",
-      price: "10.000",
-      image:
-        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Rice Bowl Rejo",
-      rating: 4.9,
-      desc: "Saus sambal spesial",
-      price: "10.000",
-      image:
-        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop",
-    },
-  ];
+function HeroIllustration() {
+  return (
+    <svg
+      viewBox="0 0 140 120"
+      className="absolute right-0 bottom-0 h-full w-auto opacity-90 select-none pointer-events-none"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* Body */}
+      <ellipse cx="80" cy="100" rx="22" ry="10" fill="#C15F3C" opacity="0.3" />
+      <rect x="65" y="60" width="28" height="40" rx="10" fill="#C15F3C" />
+      {/* Head */}
+      <circle cx="79" cy="48" r="16" fill="#FDEAE4" />
+      <circle cx="73" cy="46" r="2.5" fill="#231916" />
+      <circle cx="85" cy="46" r="2.5" fill="#231916" />
+      <path d="M74 53 Q79 57 84 53" stroke="#C15F3C" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      {/* Hat */}
+      <rect x="66" y="34" width="26" height="4" rx="2" fill="#231916" />
+      <rect x="70" y="24" width="18" height="12" rx="4" fill="#231916" />
+      {/* Arm + food tray */}
+      <rect x="43" y="64" width="22" height="5" rx="2.5" fill="#C15F3C" />
+      <ellipse cx="38" cy="66" rx="14" ry="5" fill="#F1DFD9" />
+      <rect x="33" y="58" width="10" height="8" rx="3" fill="#FDEAE4" stroke="#DCC1B8" strokeWidth="1" />
+      {/* Sign */}
+      <rect x="92" y="38" width="42" height="22" rx="6" fill="#231916" />
+      <text x="113" y="50" fontSize="7" fill="white" textAnchor="middle" fontWeight="bold">25K</text>
+      <text x="113" y="58" fontSize="5" fill="#C15F3C" textAnchor="middle">CASHBACK</text>
+      <line x1="92" y1="49" x2="93" y2="65" stroke="#231916" strokeWidth="2" />
+    </svg>
+  )
+}
+
+const FEATURED_MENU_IDS = ['menu_008', 'menu_001', 'menu_013']
+
+export default async function HomePage() {
+  const [stores, reviews] = await Promise.all([
+    getStores(),
+    getFeaturedReviews(),
+  ])
+
+  const featuredMenuItems = FEATURED_MENU_IDS.map(
+    (id) => menuItems.find((m) => m.id === id)
+  ).filter(Boolean)
 
   return (
-    <main className="min-h-screen bg-[#f6f1ea] font-switzer">
-      {/* Mobile Container */}
-      <section className="mx-auto flex min-h-screen w-full max-w-sm flex-col bg-[#f7f1ea]">
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 pb-3 pt-5">
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-[#c46b4b]" />
-            <span className="text-sm font-medium text-[#7c4a3c]">
-              Blater
+    <div className="flex flex-col gap-section-gap pb-24">
+
+      {/* ── Hero Section ───────────────────────────────── */}
+      <section className="px-page pt-5">
+        <div className="bg-brand-hero rounded-card p-5 min-h-[148px] flex flex-col justify-between relative overflow-hidden">
+          <div className="z-10 max-w-[190px]">
+            <p className="text-[11px] font-semibold text-content-secondary uppercase tracking-wide mb-1">
+              Diskon spesial
+            </p>
+            <h2 className="text-[22px] font-extrabold text-content-primary leading-tight">
+              Nyatuin Rasa,<br />Kenyangin Mahasiswa
+            </h2>
+          </div>
+          <div className="z-10 mt-3">
+            <span className="inline-block bg-brand-primary text-white text-[11px] font-bold px-3 py-1.5 rounded-pill shadow-sm">
+              CASHBACK s/d Rp 25.000 →
             </span>
           </div>
-
-          <button className="rounded-full p-1 text-[#c46b4b]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 7h16M4 12h16M4 17h16"
-              />
-            </svg>
-          </button>
+          <HeroIllustration />
         </div>
+      </section>
 
-        {/* Banner */}
-        <div className="px-4">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#d88a39] to-[#d76b2f] p-4 text-white">
-            <div className="relative z-10 max-w-[180px]">
-              <p className="text-2xl font-bold leading-tight">
-                Nyatuin Rasa,
-                <br />
-                Kenyangin Mahasiswa
-              </p>
+      {/* ── Category Chips ──────────────────────────────── */}
+      <section className="px-page">
+        <CategoryChips />
+      </section>
 
-              <p className="mt-2 text-[11px] opacity-90">
-                Diskon terbaik
-              </p>
-
-              <p className="mt-1 text-xs font-medium">
-                CASHBACK SAMPAI DENGAN
-              </p>
-
-              <h1 className="text-5xl font-extrabold leading-none">
-                25.000
-              </h1>
-            </div>
-
-            {/* Decorative Circle */}
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
-            <div className="absolute bottom-0 right-0 h-28 w-28 rounded-full bg-black/10" />
-
-            {/* Character Placeholder */}
-            <div className="absolute bottom-0 right-3 flex items-end gap-2">
-              <div className="h-24 w-16 rounded-t-full bg-[#2f2f2f]" />
-              <div className="h-20 w-14 rounded-t-full bg-[#ffe4cf]" />
-            </div>
+      {/* ── MINJAN Chatbot Teaser ────────────────────────── */}
+      <section className="px-page">
+        <Link
+          href="/chat"
+          className="bg-surface-chatbot-overlay backdrop-blur-[6px] border border-border-chatbot rounded-card p-4 flex items-center gap-4 active:scale-[0.98] transition-transform block"
+        >
+          <div className="w-12 h-12 rounded-full bg-brand-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+            <MessageCircle className="w-6 h-6 text-white" />
           </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-bold text-content-primary text-body">MINJAN</h3>
+            <p className="text-caption text-content-muted truncate">
+              "Bingung pilih menu? Tanya Minjan aja"
+            </p>
+          </div>
+          <ArrowRight className="w-5 h-5 text-content-muted flex-shrink-0" />
+        </Link>
+      </section>
+
+      {/* ── Featured Menu (Food Cards matching Figma) ────── */}
+      <section className="px-page flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-heading font-bold text-content-primary">Menu Populer</h2>
+          <button className="text-brand-primary text-caption font-semibold">Lihat Semua</button>
         </div>
 
-        {/* Category Tabs */}
-        <div className="mt-5 flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-hide">
-          <button className="rounded-full bg-[#bb6a49] px-5 py-2 text-sm font-semibold text-white shadow-sm">
-            Paling Laku
-          </button>
+        <div className="flex flex-col gap-card-gap">
+          {featuredMenuItems.map((item) => {
+            if (!item) return null
+            const store = stores.find((s) => s.id === item.storeId)
+            return (
+              <Link
+                key={item.id}
+                href={store ? `/store/${store.slug}` : '/'}
+                className="flex gap-3 p-3 bg-white border border-border-DEFAULT rounded-card overflow-hidden active:scale-[0.98] transition-transform"
+              >
+                <div className="relative w-[120px] h-[120px] flex-shrink-0 rounded-[10px] overflow-hidden bg-brand-img-placeholder">
+                  <img
+                    src={item.photoUrl}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
+                  {item.isBestSeller && (
+                    <div className="absolute top-1.5 left-1.5 flex items-center gap-0.5 bg-brand-primary rounded-full px-1.5 py-0.5">
+                      <Flame className="w-2.5 h-2.5 text-white" />
+                      <span className="text-[8px] text-white font-bold">LARIS</span>
+                    </div>
+                  )}
+                </div>
 
-          <button className="rounded-full border border-[#d8c8bb] bg-[#f7f1ea] px-5 py-2 text-sm text-[#7d6f66]">
-            Promo
-          </button>
-
-          <button className="rounded-full border border-[#d8c8bb] bg-[#f7f1ea] px-5 py-2 text-sm text-[#7d6f66]">
-            Terdekat
-          </button>
-        </div>
-
-        {/* Food List */}
-        <div className="mt-4 flex flex-1 flex-col gap-4 px-4 pb-28">
-          {foods.map((food, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-3 rounded-2xl border border-[#e6ddd5] bg-[#f8f3ed] p-2 shadow-[0_2px_10px_rgba(0,0,0,0.03)]"
-            >
-              <img
-                src={food.image}
-                alt={food.name}
-                className="h-24 w-24 rounded-xl object-cover"
-              />
-
-              <div className="flex flex-1 flex-col justify-between">
-                <div>
-                  <h3 className="text-[15px] font-semibold text-[#3b2b24]">
-                    {food.name}
-                  </h3>
-
-                  <div className="mt-1 flex items-center gap-1 text-sm text-[#7b7069]">
-                    <span>⭐</span>
-                    <span>{food.rating}</span>
+                <div className="flex flex-col justify-between py-0.5 flex-1 min-w-0">
+                  <div>
+                    <h3 className="text-heading font-semibold text-content-primary line-clamp-1">
+                      {item.name}
+                    </h3>
+                    {store && (
+                      <div className="flex items-center gap-1 mt-0.5">
+                        <Star className="w-3 h-3 text-brand-primary fill-brand-primary" />
+                        <span className="text-[12px] text-content-secondary font-medium">
+                          {store.rating}
+                        </span>
+                        <span className="text-[12px] text-content-muted">· {store.name}</span>
+                      </div>
+                    )}
+                    <p className="text-[12px] text-content-muted mt-1 line-clamp-2">
+                      {item.description}
+                    </p>
                   </div>
-
-                  <p className="mt-1 text-xs text-[#9b9087]">
-                    {food.desc}
-                  </p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-brand-primary font-bold text-heading">
+                      {formatCurrency(item.price)}
+                    </span>
+                    <div className="w-7 h-7 rounded-full border border-border-chip flex items-center justify-center text-brand-primary">
+                      <span className="text-[18px] leading-none">+</span>
+                    </div>
+                  </div>
                 </div>
+              </Link>
+            )
+          })}
+        </div>
+      </section>
 
-                <div className="mt-2 flex items-center justify-between">
-                  <p className="text-base font-bold text-[#c8643d]">
-                    Rp {food.price}
-                  </p>
+      {/* ── Ulasan Pengguna (Real user photos) ──────────── */}
+      <section className="px-page flex flex-col gap-4">
+        <h2 className="text-heading font-bold text-content-primary">Kata Pelanggan</h2>
 
-                  <button className="flex h-7 w-7 items-center justify-center rounded-full border border-[#d8c8bb] text-[#c8643d] transition hover:bg-[#c8643d] hover:text-white">
-                    +
-                  </button>
+        <div className="flex flex-col gap-3">
+          {reviews.map((review) => (
+            <div
+              key={review.id}
+              className="bg-white border border-border-DEFAULT rounded-card p-4 flex gap-3"
+            >
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-brand-img-placeholder">
+                <img
+                  src={review.userAvatar}
+                  alt={review.userName}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-caption font-semibold text-content-primary truncate">
+                    {review.userName}
+                  </span>
+                  <div className="flex items-center gap-0.5 flex-shrink-0">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <Star key={i} className="w-3 h-3 text-brand-primary fill-brand-primary" />
+                    ))}
+                  </div>
                 </div>
+                <p className="text-[13px] text-content-muted mt-1 leading-snug">
+                  {review.comment}
+                </p>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Bottom Navigation */}
-        <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-sm -translate-x-1/2 items-center justify-around rounded-t-3xl border-t border-[#e5d8cc] bg-[#f4ece4] px-6 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
-          <button className="flex flex-col items-center gap-1 text-[#c8643d]">
-            <div className="rounded-xl bg-[#c8643d] p-2 text-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 2L2 8h2v8h5v-5h2v5h5V8h2L10 2z" />
-              </svg>
-            </div>
-
-            <span className="text-[10px] font-semibold">HOME</span>
-          </button>
-
-          <button className="flex flex-col items-center gap-1 text-[#8d8178]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-
-            <span className="text-[10px]">SEARCH</span>
-          </button>
-
-          <button className="flex flex-col items-center gap-1 text-[#8d8178]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5.121 17.804A9 9 0 1118.88 17.8M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-
-            <span className="text-[10px]">ACCOUNT</span>
-          </button>
-        </nav>
       </section>
-    </main>
-  );
+
+      {/* ── UMKM Terpopuler ─────────────────────────────── */}
+      <section className="px-page flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-heading font-bold text-content-primary">UMKM Terpopuler</h2>
+          <button className="text-brand-primary text-caption font-semibold">Lihat Semua</button>
+        </div>
+
+        <div className="flex flex-col gap-card-gap">
+          {stores.slice(0, 4).map((store) => (
+            <StoreCard key={store.id} store={store} />
+          ))}
+        </div>
+      </section>
+    </div>
+  )
 }

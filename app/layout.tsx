@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { TopAppBar } from "@/components/layout/top-app-bar";
+import { BottomNav } from "@/components/layout/bottom-nav";
+import { ChatWidget } from "@/components/chat/chat-widget";
 
 export const metadata: Metadata = {
-  title: "MergeShop",
-  description: "by MergeShop Team",
+  title: "Blater - Merge Shop UMKM Purbalingga",
+  description: "Platform e-commerce hyperlocal untuk UMKM kuliner di Kabupaten Purbalingga",
+  icons: {
+    icon: '/MegeIcon.png',
+    shortcut: '/MegeIcon.png',
+    apple: '/MegeIcon.png',
+  },
 };
 
 export default function RootLayout({
@@ -23,11 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="id">
+      <body className="bg-surface-page text-content-primary antialiased min-h-screen flex flex-col">
+        <TopAppBar />
+        <main className="flex-1 overflow-x-hidden">
+          {children}
+        </main>
+        <BottomNav />
+        <ChatWidget />
+      </body>
     </html>
   );
 }

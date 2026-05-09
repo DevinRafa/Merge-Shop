@@ -1,0 +1,58 @@
+import type { UserReview } from '@/lib/types'
+
+export const reviews: UserReview[] = [
+  {
+    id: 'rev_001',
+    storeId: 'str_001',
+    userName: 'Andi Prasetyo',
+    userAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&h=80&fit=crop&auto=format',
+    rating: 5,
+    comment: 'Nasi rames Mbah Darmi itu comfort food banget. Sambal terasinya bikin nagih setiap hari!',
+    date: '2026-04-20',
+  },
+  {
+    id: 'rev_002',
+    storeId: 'str_001',
+    userName: 'Dewi Rahayu',
+    userAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&auto=format',
+    rating: 5,
+    comment: 'Udah langganan 3 tahun. Harga tetap terjangkau, rasa tetap konsisten. Top!',
+    date: '2026-04-18',
+  },
+  {
+    id: 'rev_003',
+    storeId: 'str_002',
+    userName: 'Budi Santoso',
+    userAvatar: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=80&h=80&fit=crop&auto=format',
+    rating: 5,
+    comment: 'Soto Riyanto terbaik se-Purbalingga! Kuahnya bening tapi gurih banget. Wajib coba.',
+    date: '2026-04-22',
+  },
+  {
+    id: 'rev_004',
+    storeId: 'str_003',
+    userName: 'Siti Nurhaliza',
+    userAvatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&auto=format',
+    rating: 5,
+    comment: 'Ayam gepreknya crispy banget, sambalnya bisa request tingkat kepedasan. Favorit anak kos!',
+    date: '2026-05-01',
+  },
+  {
+    id: 'rev_005',
+    storeId: 'str_005',
+    userName: 'Rizky Firmansyah',
+    userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&auto=format',
+    rating: 5,
+    comment: 'Rice Bowl Rejo itu level up dari nasi goreng biasa. Beneran enak, worth it!',
+    date: '2026-05-03',
+  },
+  {
+    id: 'rev_006',
+    storeId: 'str_006',
+    userName: 'Maya Indah',
+    userAvatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80&h=80&fit=crop&auto=format',
+    rating: 5,
+    comment: 'Es Dawet Bu Sari authentik banget. Santan segar, dawet kenyal. Cocok banget siang hari.',
+    date: '2026-04-28',
+  },
+]
